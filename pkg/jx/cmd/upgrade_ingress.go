@@ -210,7 +210,7 @@ func (o *UpgradeIngressOptions) Run() error {
 				log.Warn("Timeout reached while waiting for TLS certificates to be ready\n")
 			}
 		} else {
-			log.Warn("It can take around 5 minutes for Cert Manager to get certificates from Lets Encrypt and update Ingress rules\n")
+			log.Warn("It can take around 5 minutes for Cert Manager to get certificates from Let's Encrypt and update Ingress rules\n")
 			log.Info("Use the following commands to diagnose any issues:\n")
 			log.Infof("jx logs %s -n %s\n", pki.CertManagerDeployment, pki.CertManagerNamespace)
 			log.Info("kubectl describe certificates\n")
@@ -491,12 +491,12 @@ func (o *UpgradeIngressOptions) confirmExposecontrollerConfig() error {
 
 		if !strings.HasSuffix(o.IngressConfig.Domain, "nip.io") {
 			if !o.BatchMode {
-				o.IngressConfig.TLS = util.Confirm("If your network is publicly available would you like to enable cluster wide TLS?", true, "Enables cert-manager and configures TLS with signed certificates from LetsEncrypt", o.In, o.Out, o.Err)
+				o.IngressConfig.TLS = util.Confirm("If your network is publicly available would you like to enable cluster wide TLS?", true, "Enables cert-manager and configures TLS with signed certificates from Let's Encrypt", o.In, o.Out, o.Err)
 			}
 
 			if o.IngressConfig.TLS {
-				log.Infof("If testing LetsEncrypt you should use staging as you may be rate limited using production.")
-				clusterIssuer, err := util.PickNameWithDefault([]string{"staging", "production"}, "Use LetsEncrypt staging or production?", "production", "", o.In, o.Out, o.Err)
+				log.Infof("If testing Let's Encrypt you should use staging as you may be rate limited using production.")
+				clusterIssuer, err := util.PickNameWithDefault([]string{"staging", "production"}, "Use Let's Encrypt staging or production?", "production", "", o.In, o.Out, o.Err)
 				// if the cluster issuer is production the string needed by letsencrypt is prod
 				if clusterIssuer == "production" {
 					clusterIssuer = "prod"
@@ -515,7 +515,7 @@ func (o *UpgradeIngressOptions) confirmExposecontrollerConfig() error {
 					o.IngressConfig.Email = strings.TrimSpace(email1)
 				}
 
-				o.IngressConfig.Email, err = util.PickValue("Email address to register with LetsEncrypt:", o.IngressConfig.Email, true, "", o.In, o.Out, o.Err)
+				o.IngressConfig.Email, err = util.PickValue("Email address to register with Let's Encrypt:", o.IngressConfig.Email, true, "", o.In, o.Out, o.Err)
 				if err != nil {
 					return err
 				}

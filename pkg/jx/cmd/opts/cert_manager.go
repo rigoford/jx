@@ -25,7 +25,7 @@ func (o *CommonOptions) EnsureCertManager() error {
 			ok = util.Confirm(
 				"CertManager deployment not found, shall we install it now?",
 				true,
-				"CertManager automatically configures Ingress rules with TLS using signed certificates from LetsEncrypt",
+				"CertManager automatically configures Ingress rules with TLS using signed certificates from Let's Encrypt",
 				o.In, o.Out, o.Err)
 		}
 		if ok {
